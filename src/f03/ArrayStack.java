@@ -13,39 +13,41 @@ public class ArrayStack<T> implements StackADT<T> {
 
     public final int DEFAULT_CAPACITY = 100;
     private int top;
-    private T[] stack;
+    T[] arrayStack;
 
     public ArrayStack() {
         top = 0;
-        stack = (T[]) (new Object[DEFAULT_CAPACITY]);
+        arrayStack = (T[]) (new Object[DEFAULT_CAPACITY]);
     }
 
     public ArrayStack(int initialCapacity) {
 
         top = 0;
-        stack = (T[]) (new Object[initialCapacity]);
+        arrayStack = (T[]) (new Object[initialCapacity]);
 
     }
 
     @Override
     public void push(T element) {
 
-//        if(size() == stack.length)
-//            expandCapacity();
-        stack[top] = element;
+        if (size() == arrayStack.length) {
+            expandCapacity();
+        }
+
+        arrayStack[top] = element;
         top++;
 
     }
 
     @Override
-    public T pop() {
+    public T pop() throws EmptyCollectionException {
         if (isEmpty()) {
-            System.out.println("Empty Stack");
+            throw new EmptyCollectionException("Stack");
         }
 
         top--;
-        T result = stack[top];
-        stack[top] = null;
+        T result = arrayStack[top];
+        arrayStack[top] = null;
 
         return result;
     }
@@ -57,7 +59,7 @@ public class ArrayStack<T> implements StackADT<T> {
             System.out.println("Empty Stack");
         }
 
-        return stack[top - 1];
+        return arrayStack[top - 1];
 
     }
 
@@ -76,4 +78,7 @@ public class ArrayStack<T> implements StackADT<T> {
         return top;
     }
 
+    public void expandCapacity() {
+        arrayStack = (T[]) (new Object[arrayStack.length + arrayStack.length]);
+    }
 }

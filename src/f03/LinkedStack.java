@@ -35,11 +35,10 @@ public class LinkedStack<T> implements StackADT<T> {
     }
 
     @Override
-    public T pop() {
+    public T pop() throws EmptyCollectionException {
 
         if (isEmpty()) {
-            System.out.println("Sem elementos na LinkedStack");
-            return null;
+            throw new EmptyCollectionException("Stack");
         } else {
             LinearNode<T> excluido = top;
             top = excluido.getNext();
@@ -50,16 +49,12 @@ public class LinkedStack<T> implements StackADT<T> {
     }
 
     @Override
-    public T peek() {
-        return top.getElement();
-    }
+    public T peek() throws EmptyCollectionException {
 
-    public void displayList() {
-        LinearNode<T> current = top;
-        while (current != null) {
-            System.out.println(current.toString());
-            current = current.next;
+        if (isEmpty()) {
+            throw new EmptyCollectionException("Stack");
         }
+        return top.getElement();
     }
 
     @Override
@@ -75,7 +70,19 @@ public class LinkedStack<T> implements StackADT<T> {
     public int size() {
         return size;
     }
-    
-    
+
+    @Override
+    public String toString() {
+
+        String result = "";
+        LinearNode<T> current = top;
+
+        while (current != null) {
+            result = result + (current.getElement()).toString() + "\n";
+            current = current.getNext();
+        }
+
+        return result;
+    }
 
 }

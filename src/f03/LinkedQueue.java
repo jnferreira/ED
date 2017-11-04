@@ -17,49 +17,53 @@ public class LinkedQueue<T> implements QueueADT<T> {
     private int size = 0;
 
     public LinkedQueue() {
-        front = null;
-        rear = null;
+        front = rear = null;
         size = 0;
 
     }
 
     @Override
     public void enqueue(T element) {
-        LinearNode<T> newNode = new LinearNode<>(element);
-
-        if (front == null && rear == null) {
-
-            front = newNode;
-            rear = newNode;
-            size++;
-
-        } else {
-
-            newNode.setNext(rear);
-            rear = newNode;
-            size++;
-
-        }
-    }
-
-    @Override
-    public T dequeue() {
+        LinearNode<T> node = new LinearNode<T>(element);
 
         if (isEmpty()) {
-            System.out.println("Sem elementos na LinkedStack");
-            return null;
+            front = node;
+            rear = node;
+            size++;
         } else {
-            LinearNode<T> excluido = front;
-            front = excluido.getNext();
-            size--;
-            return excluido.getElement();
+            rear.setNext(node);
+            rear = node;
+            size++;
         }
 
     }
 
     @Override
-    public T first() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public T dequeue() throws EmptyCollectionException{
+
+        if (isEmpty()) {
+            throw new EmptyCollectionException("Queue");
+        }
+
+        T result = front.getElement();
+        front = front.getNext();
+        size--;
+
+        if (isEmpty()) {
+            rear = null;
+        }
+
+        return result;
+
+    }
+
+    @Override
+    public T first() throws EmptyCollectionException {
+        if (isEmpty()) {
+            throw new EmptyCollectionException("Queue");
+        }
+
+        return front.getElement();
     }
 
     @Override
@@ -73,22 +77,20 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return size;
     }
 
     @Override
     public String toString() {
 
-        LinearNode<T> current = rear;
-        ArrayList<String> ar1 = new ArrayList<>();
+        String result = "";
+        LinearNode<T> current = front;
 
         while (current != null) {
-
-            ar1.add(current.toString());
-            current = current.next;
-
+            result = result + (current.getElement()).toString() + "\n";
+            current = current.getNext();
         }
-        return ar1.toString();
 
+        return result;
     }
 }

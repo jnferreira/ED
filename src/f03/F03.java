@@ -16,9 +16,17 @@ public class F03 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EmptyCollectionException {
 
-//        ArrayStack<Integer> ar1 = new ArrayStack<>();
+        ArrayStack<Integer> ar1 = new ArrayStack<>(5);
+        ar1.push(1);
+        ar1.push(1);
+        ar1.push(1);
+        ar1.push(1);
+        ar1.push(1);
+        ar1.push(1);
+        
+//        System.out.println(ar1.size());
 //        
 //        ar1.push(2);
 //        ar1.push(3);
@@ -35,9 +43,23 @@ public class F03 {
 //       System.out.println(ls1.size());
 //
 ////        ls1.displayList();
-        Calculator cl1 = new Calculator();
+//        Calculator cl1 = new Calculator();
+//        
+//        System.out.println(cl1.calcular("1 4 + 2 +"));
+//        QueueADT<Integer> linkedQueue1 = new LinkedQueue<Integer>();
+//        linkedQueue1.enqueue(1);
+//        linkedQueue1.enqueue(2);
+//        linkedQueue1.enqueue(3);
+//        linkedQueue1.enqueue(4);
+//        linkedQueue1.dequeue();
         
-        System.out.println(cl1.calcular("1 4 + 2 +"));
+//        System.out.println(linkedQueue1.front.getNext());
+//        System.out.println(linkedQueue1.dequeue());
+//        System.out.println(linkedQueue1.front.getElement());
+//        System.out.println(linkedQueue1.toString());
+//        System.out.println(linkedQueue1.first());
+
+          
 
     }
 
